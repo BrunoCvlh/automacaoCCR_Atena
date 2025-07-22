@@ -16,6 +16,9 @@ def tratar_planilha(file_path, competencia):
         except Exception:
             primeiro_dia = ""
         df["Data Competência"] = primeiro_dia
+        # Excluir as últimas duas linhas
+        if len(df) > 2:
+            df = df.iloc[:-2].reset_index(drop=True)
         downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
         tratado_path = os.path.join(downloads_folder, "planilha_tratada.xlsx")
         df.to_excel(tratado_path, index=False)
